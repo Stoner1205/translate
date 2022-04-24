@@ -16,7 +16,7 @@
 
 通过提升，我们可以在同样的根目录`package-1/node_modules`下排除重复的“A@1.0”和“B@1.0”，同时保存不同的版本(B@2.0)。大部分的依赖检索器/加载器/打包工具可以从项目根目录开始通过遍历“node_modules”树来高效的定位本地依赖模块。
 
-接下来我们看看monoreo项目，它引入的新分层结构不需要通过“node_modules”的硬链接。在这样的项目中，依赖可以被分散在多个不同的独立目录中。
+接下来我们看看monorepo项目，它引入的新分层结构不需要通过“node_modules”的硬链接。在这样的项目中，依赖可以被分散在多个不同的独立目录中。
 
 ![monotree](https://classic.yarnpkg.com/assets/posts/2018-02-15-nohoist/monorepo-2.svg)
 
@@ -163,13 +163,13 @@ C
 
 #### nohoist模式
 
-“**/react-native”：这个配置告诉yarn不要提升react-native包自身，不管它在哪。（shallow）
+“**\*\*/react-native**”：这个配置告诉yarn不要提升react-native包自身，不管它在哪。（shallow）
 
 - “**”用来匹配react-native之前的0到n个元素，这意味着他会匹配任何的react-native不论它出现在路径的什么位置。
 
 - 结尾带着“react-native”的模式决定了react-native下面的依赖，比如“react-native/metro”，将不会进行匹配，因此我们称其为“shallow”。
 
-“\*\*/react-native/\*\*”：这个配置告诉yarn不要提升任何与react-native相关的依赖库，以及这些依赖库相关的依赖。（deep）
+“**\*\*/react-native/\*\***”：这个配置告诉yarn不要提升任何与react-native相关的依赖库，以及这些依赖库相关的依赖。（deep）
 
 - 结尾带着“\*\*”的模式，并不像上面提到的前置\*\*，该模式匹配react-native之后的1到n个元素，意味着只有react-native的依赖匹配这个模式，但不包括react-native自身。
 
